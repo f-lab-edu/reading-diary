@@ -1,46 +1,35 @@
-# Getting Started with Create React App
+# reading-diary
+## spec
+- yarn: 1.22.22
+- react: v18
+- typescript
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## 실행 방법
+1. yarn install
+2. yarn start
 
-## Available Scripts
+## 프로젝트 설명
+읽은 책을 기록 하고 저장하는 프로젝트
 
-In the project directory, you can run:
+## page 구성 및 화면
+### main
+#### url: /
 
-### `yarn start`
+#### page 정의
+- 그동안 저장했던 리스트 노출
+  - 없다면 리스트 없다고 나옴
+  - 리스트 클릭시 상세(/reading/:id)로 이동
+- reading diary 추가 버튼
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### ditail
+#### url:/reading/:id
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+#### page 정의
+- 저장했던 reading diary 상세 페이지
+- 수정 버튼 클릭시 edit으로 이동
 
-### `yarn test`
+### edit
+#### url: /edit
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `yarn build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+#### page 정의
+- 수정하거나 새로 reading diary를 생성하는 페이지
