@@ -13,10 +13,15 @@ function App() {
     <Routes>
       <Route path={ROOT.MAIN} element={<MainPage />} />
       <Route path={ROOT.READING} element={<ReadingPage />}>
-        <Route path={ROUTES.READING} element={<ReadingDetailPage />} />
+        <Route
+          path={ROOT.READING}
+          element={<Navigate to={ROOT.MAIN} replace />}
+        />
+
+        <Route path={ROUTES.DETAIL} element={<ReadingDetailPage />} />
         <Route path={ROUTES.EDIT} element={<ReadingEditPage />} />
       </Route>
-      <Route path={ROUTES.NEW} element={<NewPage />} />
+      <Route path={ROOT.NEW} element={<NewPage />} />
 
       <Route path={'*'} element={<Navigate to={ROOT.MAIN} />} />
     </Routes>

@@ -69,19 +69,23 @@ h6 {
 }
 
 h1 {
-  font-size: var(--title-lg);
+  font-size: var(--font-size-title-1);
 }
 
 h2 {
-  font-size: var(--title-md);
+  font-size: var(--font-size-title-2);
+}
+
+h3 {
+  font-size: var(--font-size-title-3);
 }
 
 h4 {
-  font-size: var(--title-sm);
+  font-size: var(--font-size-heading-1);
 }
 
 h5 {
-  font-size: var(--title-xs);
+  font-size: var(--font-size-heading-2);
 }
 
 /* Grouping content
@@ -199,7 +203,6 @@ img {
  * 1. Change the font styles in all browsers.
  * 2. Remove the margin in Firefox and Safari.
  */
-
 button,
 input,
 optgroup,
@@ -207,8 +210,14 @@ select,
 textarea {
   font-family: inherit; /* 1 */
   font-size: 100%; /* 1 */
-  line-height: 1.15; /* 1 */
   margin: 0; /* 2 */
+}
+
+button {
+  border: 0 none;
+  background-color: transparent;
+  outline: none;
+  cursor: pointer;
 }
 
 /**
@@ -305,6 +314,20 @@ progress {
 
 textarea {
   overflow: auto;
+}
+
+/**
+ * input, a, button등 text관련 color 지정
+ */
+body,
+th,
+td,
+input,
+select,
+textarea,
+button,
+a {
+  color: var(--color-light-label-normal);
 }
 
 /**
