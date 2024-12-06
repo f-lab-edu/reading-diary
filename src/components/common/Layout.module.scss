@@ -1,0 +1,10 @@
+.reading {
+  height: 100vh;
+
+  &-cont {
+    width: 1060px;
+    height: calc(100% - 100px);
+    padding: var(--spacing-20);
+    margin: 0 auto;
+  }
+}

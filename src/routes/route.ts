@@ -1,7 +1,10 @@
-const ROUTES = {
+export const ROOT = {
   MAIN: '/',
-  EDIT: '/edit',
-  READING: '/reading/:id',
+  READING: '/reading',
+  NEW: '/new',
 } as const;
 
-export default ROUTES;
+export const ROUTES = {
+  DETAIL: `${ROOT.READING}/:id`,
+  EDIT: `${ROOT.READING}/:id/edit`,
+} as const;
