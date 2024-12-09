@@ -1,6 +1,6 @@
 import styles from './Header.module.scss';
 import { NavLink } from 'react-router-dom';
-import IconCommon from '../icons/IconCommon';
+import IconCommon from 'components/icons/IconCommon';
 import { ROOT } from 'routes/route';
 
 import Logo from 'assets/icons/logo.svg';
