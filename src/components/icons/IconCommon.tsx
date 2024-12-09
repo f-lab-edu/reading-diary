@@ -6,6 +6,18 @@ const iconCommon = {
     width: 24,
     height: 24,
   },
+  cancel: {
+    width: 24,
+    height: 24,
+  },
+  search: {
+    width: 24,
+    height: 24,
+  },
+  book: {
+    width: 24,
+    height: 24,
+  },
 } as const;
 
 interface IconCommonProps {
