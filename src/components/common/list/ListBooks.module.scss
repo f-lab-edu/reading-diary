@@ -1,0 +1,93 @@
+// 책 검색 결과 리스트
+.book-list {
+  display: flex;
+  flex-wrap: wrap;
+
+  & > li {
+    width: 50%;
+    padding: var(--spacing-8);
+    box-sizing: border-box;
+  }
+
+  &-inner {
+    display: flex;
+    gap: var(--spacing-16);
+    overflow: hidden;
+    position: relative;
+    padding: var(--spacing-16);
+    border: 1px solid var(--color-light-line-normal);
+    border-radius: 16px;
+
+    &:hover {
+      .book-list-dimmed {
+        display: block;
+      }
+    }
+  }
+
+  &-thumbnail {
+    flex: none;
+    width: 120px;
+    height: 188px;
+  }
+
+  &-item {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: var(--spacing-12);
+    margin: 0;
+
+    &-box {
+      display: flex;
+      gap: var(--spacing-10);
+
+      & > dt {
+        flex: none;
+        width: 50px;
+      }
+
+      & > dd {
+        margin: 0;
+      }
+    }
+  }
+
+  &-dimmed {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--color-neutral-cool-10-52);
+  }
+
+  &-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    position: absolute;
+    z-index: 10;
+    top: 50%;
+    left: 50%;
+    width: 100px;
+    height: 100px;
+    padding: 0;
+    border-radius: 50%;
+    color: var(--color-white);
+    transform: translate(-50%, -50%);
+
+    &:hover {
+      background-color: var(--color-neutral-cool-10-52);
+    }
+
+    &-icon {
+      display: block;
+      width: 34px;
+      height: 34px;
+      margin: 0 auto var(--spacing-8);
+    }
+  }
+}

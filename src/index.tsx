@@ -4,7 +4,7 @@ import { BrowserRouter } from 'react-router-dom';
 
 import './scss/style.scss';
 
-import Layout from 'components/common/Layout';
+import Index from 'components/common/Layout';
 import App from './App';
 
 const root = ReactDOM.createRoot(
@@ -13,9 +13,9 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <BrowserRouter>
-      <Layout>
+      <Index>
         <App />
-      </Layout>
+      </Index>
     </BrowserRouter>
   </React.StrictMode>,
 );
