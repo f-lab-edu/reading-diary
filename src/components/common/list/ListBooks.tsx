@@ -1,7 +1,8 @@
 import styles from './ListBooks.module.scss';
 import IconCommon from 'components/icons/IconCommon';
+import { MouseEvent } from 'react';
 
-type BookListTypes = {
+export type BookListTypes = {
   isbn: string;
   authors: string[];
   publisher: string;
@@ -11,12 +12,13 @@ type BookListTypes = {
 
 interface ListBooksProps {
   bookList: BookListTypes[];
+  bookDetailHandler(e: MouseEvent<HTMLButtonElement>): void;
 }
 
-const ListBooks = ({ bookList }: ListBooksProps) => {
+const ListBooks = ({ bookList, bookDetailHandler }: ListBooksProps) => {
   return (
     <ul className={styles['book-list']}>
-      {bookList.map((book: any) => {
+      {bookList.map((book: BookListTypes) => {
         const { isbn, authors, publisher, thumbnail, title } = book;
         return (
           <li key={isbn}>
@@ -41,7 +43,11 @@ const ListBooks = ({ bookList }: ListBooksProps) => {
                 </div>
               </dl>
               <div className={styles['book-list-dimmed']}>
-                <button type="button" className={styles['book-list-btn']}>
+                <button
+                  type="button"
+                  className={styles['book-list-btn']}
+                  onClick={bookDetailHandler}
+                  data-isbn={isbn}>
                   <IconCommon
                     name="book"
                     className={styles['book-list-btn-icon']}
