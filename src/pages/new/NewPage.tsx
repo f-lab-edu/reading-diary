@@ -1,30 +1,20 @@
-import { useEffect, useState, useRef, useCallback } from 'react';
-
 import styles from './NewPage.module.scss';
-import '@toast-ui/editor/dist/toastui-editor.css';
 
+import { useEffect, useState, useRef, useCallback, MouseEvent } from 'react';
 import { Editor } from '@toast-ui/react-editor';
 
-// import { getBooks } from 'api/book';
+// import { getBooks } from 'api/book'; 추후 api 연동하기 위해 남겨 놓음
 import { mockApi } from 'utils/api';
-
-import { MouseEvent } from 'react';
 
 import SearchCommon from 'components/common/search/SearchCommon';
 import ListBooks, { BookListTypes } from 'components/common/list/ListBooks';
+import ToastEditor from 'components/common/ToastEditor';
 
 const ReadingNewPage = () => {
   const [bookList, setBookList] = useState<BookListTypes[]>([]);
-  const [step, setStep] = useState<number>(2);
+  const [step, setStep] = useState<number>(1);
   const [searchKeyword, setSearchKeyword] = useState<string>('');
-  const [bookItem, setBookItem] = useState<BookListTypes | null>({
-    authors: ['할미언니'],
-    isbn: '1193262232 9791193262238',
-    publisher: '필름(Feelm)',
-    thumbnail:
-      'https://search1.kakaocdn.net/thumb/R120x174.q85/?fname=http%3A%2F%2Ft1.daumcdn.net%2Flbook%2Fimage%2F6717156%3Ftimestamp%3D20241123152903',
-    title: '돈 공부를 시작하고 인생의 불안이 사라졌다',
-  });
+  const [bookItem, setBookItem] = useState<BookListTypes | null>();
 
   const editRef = useRef<Editor>(null);
 
@@ -51,28 +41,18 @@ const ReadingNewPage = () => {
       (item) => e.currentTarget.dataset.isbn === item.isbn,
     );
 
-    console.log(bookItem);
-
     setBookItem(bookItem[0]);
     setStep(2);
   };
 
-  // const onChangeEdit = useCallback(() => {
-  //   if (!editRef.current) return;
-  //   console.log(editRef.current.getInstance().getMarkdown());
-  //   console.log(editRef.current.getInstance().getHTML());
-  // }, []);
-
-  // const onChangeEdit = () => {
-  //   if (!editRef.current) return;
-  //   console.log(editRef.current.getInstance().getMarkdown());
-  //   console.log(editRef.current.getInstance().getHTML());
-  // };
+  const onChangeEdit = useCallback(() => {
+    if (!editRef.current) return;
+    console.log(editRef.current.getInstance().getMarkdown());
+  }, []);
 
   useEffect(() => {
     const mockBookSearch = mockApi('/data/mock/bookList.json');
 
-    // const test = getBooks('최고의 공부');
     mockBookSearch
       .then((data) => {
         const { documents, meta } = data;
@@ -80,13 +60,6 @@ const ReadingNewPage = () => {
       })
       .catch((error) => console.log(error));
   }, []);
-
-  const toolbarItems = [
-    ['heading', 'bold', 'italic', 'strike'],
-    ['hr'],
-    ['ul', 'ol', 'task'],
-    ['table', 'link'],
-  ];
 
   return (
     <>
@@ -143,18 +116,19 @@ const ReadingNewPage = () => {
           <section className={styles['section-edit']}>
             <h3>기록 남기기</h3>
             <div className={styles['edit-box']}>
-              <Editor
-                ref={editRef}
-                initialValue="### 읽고 기억하고 싶은걸 써보자!"
-                previewStyle="tab"
-                height="600px"
-                initialEditType="markdown"
-                useCommandShortcut={true}
-                toolbarItems={toolbarItems}
-                hideModeSwitch={true}
+              <ToastEditor
+                editorRef={editRef}
+                initValue="### 읽고 기억하고 싶은걸 써보자!"
               />
             </div>
-            {/*<button onClick={onChangeEdit}>test</button>*/}
+            <div className={styles['edit-group-btn']}>
+              <button
+                type="button"
+                onClick={onChangeEdit}
+                className={styles['edit-btn-save']}>
+                저장하기
+              </button>
+            </div>
           </section>
         </>
       )}

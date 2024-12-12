@@ -74,6 +74,19 @@
 // section 에디트 부분
 .section-edit {
   padding-top: var(--spacing-20);
+
+  .edit-group-btn {
+    padding-top: var(--spacing-16);
+  }
+
+  .edit-btn-save {
+    display: block;
+    height: 48px;
+    padding: 0 var(--spacing-16);
+    color: var(--color-white);
+    border-radius: 8px;
+    background-color: var(--color-light-primary-normal);
+  }
 }
 
 .edit-box {
