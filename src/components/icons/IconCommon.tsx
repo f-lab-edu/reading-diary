@@ -1,38 +1,17 @@
 import commonIcon from 'assets/icons/common.svg';
 import { CSSProperties, FC } from 'react';
 
-const iconCommon = {
-  add: {
-    width: 24,
-    height: 24,
-  },
-  cancel: {
-    width: 24,
-    height: 24,
-  },
-  search: {
-    width: 24,
-    height: 24,
-  },
-  book: {
-    width: 24,
-    height: 24,
-  },
-} as const;
+type iconName = 'cancel' | 'search' | 'book' | 'add';
 
 interface IconCommonProps {
-  name: keyof typeof iconCommon;
+  name: iconName;
   className?: string;
   style?: CSSProperties;
 }
 
 const IconCommon: FC<IconCommonProps> = ({ name, className, style }) => {
   return (
-    <svg
-      width={iconCommon[name].width}
-      height={iconCommon[name].height}
-      className={className}
-      style={style}>
+    <svg width="24" height="24" className={className} style={style}>
       <use href={`${commonIcon}#${name}`} />
     </svg>
   );
