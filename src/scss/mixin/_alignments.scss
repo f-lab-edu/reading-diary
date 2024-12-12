@@ -1,0 +1,15 @@
+@mixin positionAlign($direction: center) {
+  position: absolute;
+
+  @if $direction == horizontalCenter {
+    left: 50%;
+    transform: translateX(-50%);
+  } @else if $direction == verticalCenter {
+    top: 50%;
+    transform: translateY(-50%);
+  } @else if $direction == center {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+}

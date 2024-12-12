@@ -1,3 +1,5 @@
+@use 'scss/mixin/alignments' as alignments;
+
 // 책 검색 결과 리스트
 .book-list {
   display: flex;
@@ -64,24 +66,12 @@
   }
 
   &-btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
     flex-direction: column;
-    position: absolute;
+    @include alignments.positionAlign;
     z-index: 10;
-    top: 50%;
-    left: 50%;
     width: 100px;
     height: 100px;
-    padding: 0;
     border-radius: 50%;
-    color: var(--color-white);
-    transform: translate(-50%, -50%);
-
-    &:hover {
-      background-color: var(--color-neutral-cool-10-52);
-    }
 
     &-icon {
       display: block;

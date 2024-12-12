@@ -9,6 +9,7 @@ import { mockApi } from 'utils/api';
 import SearchCommon from 'components/common/search/SearchCommon';
 import ListBooks, { BookListTypes } from 'components/common/list/ListBooks';
 import ToastEditor from 'components/common/ToastEditor';
+import BtnCommon from '../../components/common/Buttons/BtnCommon';
 
 const ReadingNewPage = () => {
   const [bookList, setBookList] = useState<BookListTypes[]>([]);
@@ -122,12 +123,13 @@ const ReadingNewPage = () => {
               />
             </div>
             <div className={styles['edit-group-btn']}>
-              <button
+              <BtnCommon
                 type="button"
-                onClick={onChangeEdit}
-                className={styles['edit-btn-save']}>
+                clickHandler={onChangeEdit}
+                bgType="primary"
+                size="medium">
                 저장하기
-              </button>
+              </BtnCommon>
             </div>
           </section>
         </>

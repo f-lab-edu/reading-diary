@@ -1,6 +1,7 @@
 import styles from './SearchCommon.module.scss';
-import IconCommon from '../../icons/IconCommon';
 import { ChangeEvent } from 'react';
+import IconCommon from 'components/icons/IconCommon';
+import BtnCommon from '../Buttons/BtnCommon';
 
 interface SearchCommonProps {
   keywordHandler(e: ChangeEvent<HTMLElement>): void;
@@ -28,22 +29,24 @@ const SearchCommon = ({
           value={searchKeyword}
         />
         {searchKeyword && (
-          <button
+          <BtnCommon
             type="reset"
-            className={styles['search-btn-reset']}
-            onClick={resetHandler}>
+            bgType="neutral"
+            clickHandler={resetHandler}
+            className={styles['search-btn-reset']}>
             <IconCommon name="cancel" className={styles['search-icon-reset']} />
             <span className="sr-only">삭제</span>
-          </button>
+          </BtnCommon>
         )}
       </div>
-      <button
+      <BtnCommon
         type="button"
-        className={styles['search-btn-search']}
-        onClick={searchHandler}>
+        clickHandler={searchHandler}
+        bgType="primary"
+        className={styles['search-btn-search']}>
         <IconCommon name="search" className={styles['search-icon-search']} />
         <span className="sr-only">검색</span>
-      </button>
+      </BtnCommon>
     </div>
   );
 };

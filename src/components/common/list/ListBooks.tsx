@@ -1,5 +1,6 @@
 import styles from './ListBooks.module.scss';
 import IconCommon from 'components/icons/IconCommon';
+import BtnCommon from '../Buttons/BtnCommon';
 import { MouseEvent } from 'react';
 
 export type BookListTypes = {
@@ -43,17 +44,18 @@ const ListBooks = ({ bookList, bookDetailHandler }: ListBooksProps) => {
                 </div>
               </dl>
               <div className={styles['book-list-dimmed']}>
-                <button
+                <BtnCommon
                   type="button"
                   className={styles['book-list-btn']}
-                  onClick={bookDetailHandler}
+                  clickHandler={bookDetailHandler}
+                  bgType="dimmed"
                   data-isbn={isbn}>
                   <IconCommon
                     name="book"
                     className={styles['book-list-btn-icon']}
                   />
                   선택하기
-                </button>
+                </BtnCommon>
               </div>
             </div>
           </li>
