@@ -214,10 +214,20 @@ textarea {
 }
 
 button {
+  padding: 0;
   border: 0 none;
   background-color: transparent;
   outline: none;
   cursor: pointer;
+}
+
+/**
+  * list style
+  */
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
 /**

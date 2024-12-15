@@ -1,10 +1,10 @@
 import styles from './Layout.module.scss';
 
-import Header from 'components/common/Header';
+import Header from 'components/common/Layout/Header';
 
 import { FCWithChildren } from 'utils/types';
 
-const Layout: FCWithChildren = ({ children }) => {
+const Index: FCWithChildren = ({ children }) => {
   return (
     <div className={styles['reading']}>
       <Header />
@@ -13,4 +13,4 @@ const Layout: FCWithChildren = ({ children }) => {
   );
 };
 
-export default Layout;
+export default Index;

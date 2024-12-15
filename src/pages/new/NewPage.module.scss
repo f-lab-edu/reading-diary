@@ -1,0 +1,85 @@
+//section - 검색
+.section-search {
+  padding-top: var(--spacing-20);
+}
+
+// section - 검색 리스트
+.section-result {
+  padding-top: var(--spacing-20);
+}
+
+// section 북 인포 부분
+.section-book {
+  padding-top: var(--spacing-20);
+
+  &-inner {
+    display: flex;
+    gap: var(--spacing-16);
+    align-items: center;
+    padding: var(--spacing-20);
+    border-radius: 16px;
+    border: 1px solid var(--color-light-line-normal-alternative);
+    background-color: var(--color-light-background-normal-alternative);
+  }
+
+  .box-thumbnail {
+    flex-shrink: 0;
+    overflow: hidden;
+    position: relative;
+    width: 120px;
+    height: 174px;
+    border-radius: 8px;
+
+    & > img {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+
+    &:after {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: 1px solid var(--color-light-line-normal);
+      border-radius: 8px;
+      box-sizing: border-box;
+      content: '';
+    }
+  }
+
+  .book-info {
+    &-item {
+      display: flex;
+
+      & > dt {
+        width: 56px;
+      }
+
+      & > dd {
+        margin: 0;
+      }
+
+      & + .book-info-item {
+        padding-top: var(--spacing-8);
+      }
+    }
+  }
+
+  .box-info {
+  }
+}
+
+// section 에디트 부분
+.section-edit {
+  padding-top: var(--spacing-20);
+
+  .edit-group-btn {
+    padding-top: var(--spacing-16);
+  }
+}
+
+.edit-box {
+  padding-top: var(--spacing-8);
+}
