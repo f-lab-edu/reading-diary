@@ -59,7 +59,9 @@ const ReadingNewPage = () => {
         const { documents, meta } = data;
         setBookList(documents);
       })
-      .catch((error) => console.log(error));
+      .catch((error) => {
+        throw new Error(error.message);
+      });
   }, []);
 
   return (
