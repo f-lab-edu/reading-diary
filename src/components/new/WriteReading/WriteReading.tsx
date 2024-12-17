@@ -1,9 +1,21 @@
-import styles from '../../../pages/new/NewPage.module.scss';
-import ToastEditor from '../../common/ToastEditor';
-import BtnCommon from '../../common/Buttons/BtnCommon';
+// import styles from '../../../pages/new/NewPage.module.scss';
+
+import styles from './WriteReading.module.scss';
+
+import ToastEditor from 'components/common/ToastEditor';
+import TfComm from 'components/common/textField/TfComm';
+import BtnCommon from 'components/common/Buttons/BtnCommon';
+import IconCommon from 'components/icons/IconCommon';
 
 import { BookListTypes } from 'components/common/list/ListBooks';
-import { FC, Ref } from 'react';
+import {
+  ChangeEvent,
+  MouseEvent,
+  FC,
+  KeyboardEvent,
+  Ref,
+  useState,
+} from 'react';
 import { Editor } from '@toast-ui/react-editor';
 
 interface WriteReadingProps {
@@ -17,6 +29,47 @@ const WriteReading: FC<WriteReadingProps> = ({
   editorRef,
   sendHandler,
 }) => {
+  const [tags, setTag] = useState<string[]>([]);
+  const [value, setValue] = useState<string>('');
+
+  const onKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
+    const { key } = e;
+    const tagList = tags;
+
+    switch (key) {
+      case ',':
+      case ' ':
+        setValue('');
+        break;
+
+      case 'Enter':
+        if (tagList.includes(`#${value}`)) {
+          setValue('');
+
+          return;
+        }
+
+        tagList.push(`#${value}`);
+        setTag(tagList);
+        setValue('');
+        break;
+    }
+  };
+
+  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setValue(e.target.value);
+  };
+
+  const deleteTag = (e: MouseEvent<HTMLButtonElement>) => {
+    const deleteTag = e.currentTarget.dataset.tag;
+
+    setTag(tags.filter((item) => deleteTag !== item));
+  };
+
+  const onReset = () => {
+    setValue('');
+  };
+
   return (
     <>
       <section className={styles['section-book']}>
@@ -43,15 +96,35 @@ const WriteReading: FC<WriteReadingProps> = ({
       </section>
       <section className={styles['section-edit']}>
         <h3>Tags</h3>
-        <div className={styles['tag-box']}>
-          <input
-            type="text"
-            placeholder="',' 또는 enter입력해서 tag를 입력해 주세요."
-            className={styles['tf-tags']}
-          />
-        </div>
-
-        <div></div>
+        <TfComm
+          placeholder="enter입력해서 tag를 입력해 주세요."
+          keyword={value}
+          keywordHandler={onChange}
+          resetHandler={onReset}
+          keyUpHandler={onKeyDown}
+          className={styles['tag-tf']}
+        />
+        {!!tags.length && (
+          <div className={styles['tag']}>
+            {tags.map((item) => {
+              return (
+                <div key={item} className={styles['tag-item']}>
+                  {item}
+                  <button
+                    type="button"
+                    className={styles['tag-btn-delete']}
+                    data-tag={item}
+                    onClick={deleteTag}>
+                    <IconCommon
+                      name="cancel"
+                      className={styles['tag-icon-delete']}
+                    />
+                  </button>
+                </div>
+              );
+            })}
+          </div>
+        )}
       </section>
       <section className={styles['section-edit']}>
         <h3>기록 남기기</h3>

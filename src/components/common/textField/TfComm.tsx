@@ -1,7 +1,7 @@
 // import styles from '../search/SearchCommon.module.scss';
 import styles from './TfComm.module.scss';
 
-import { FC, ChangeEvent } from 'react';
+import { FC, ChangeEvent, KeyboardEvent } from 'react';
 import classNames from 'classnames';
 import BtnCommon from '../Buttons/BtnCommon';
 import IconCommon from '../../icons/IconCommon';
@@ -12,6 +12,7 @@ interface TfCommProps {
   keyword: string;
   resetHandler(): void;
   keywordHandler(e: ChangeEvent<HTMLElement>): void;
+  keyUpHandler?(e: KeyboardEvent<HTMLInputElement>): void;
 }
 
 const TfComm: FC<TfCommProps> = ({
@@ -20,6 +21,7 @@ const TfComm: FC<TfCommProps> = ({
   keyword,
   resetHandler,
   keywordHandler,
+  keyUpHandler,
 }) => {
   return (
     <div className={classNames(styles['tf-comm'], className)}>
@@ -28,6 +30,7 @@ const TfComm: FC<TfCommProps> = ({
         placeholder={placeholder}
         className={styles['tf-comm-inp']}
         onChange={keywordHandler}
+        onKeyUp={keyUpHandler}
         value={keyword}
       />
       {keyword && (
