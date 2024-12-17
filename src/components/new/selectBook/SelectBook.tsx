@@ -1,4 +1,4 @@
-import styles from '../../../pages/new/NewPage.module.scss';
+import styles from './SelectBook.module.scss';
 
 import { FC, MouseEvent, useState } from 'react';
 import SearchCommon from 'components/common/search/SearchCommon';

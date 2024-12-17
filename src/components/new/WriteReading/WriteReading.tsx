@@ -1,75 +1,38 @@
-// import styles from '../../../pages/new/NewPage.module.scss';
-
 import styles from './WriteReading.module.scss';
 
+import { ChangeEvent, MouseEvent, FC, KeyboardEvent, Ref } from 'react';
+
+import { Editor } from '@toast-ui/react-editor';
 import ToastEditor from 'components/common/ToastEditor';
 import TfComm from 'components/common/textField/TfComm';
 import BtnCommon from 'components/common/Buttons/BtnCommon';
-import IconCommon from 'components/icons/IconCommon';
+import Tag from './Tag';
 
 import { BookListTypes } from 'components/common/list/ListBooks';
-import {
-  ChangeEvent,
-  MouseEvent,
-  FC,
-  KeyboardEvent,
-  Ref,
-  useState,
-} from 'react';
-import { Editor } from '@toast-ui/react-editor';
 
 interface WriteReadingProps {
   bookItem: BookListTypes;
   editorRef: Ref<Editor>;
+  tagData: string[];
+  tagText: string;
+  tagTextResetHandler(): void;
+  tagTextChangeHandler(e: ChangeEvent<HTMLInputElement>): void;
+  tagInsert(e: KeyboardEvent<HTMLInputElement>): void;
+  tagDeleteHandler(e: MouseEvent<HTMLButtonElement>): void;
   sendHandler(): void;
 }
 
 const WriteReading: FC<WriteReadingProps> = ({
   bookItem,
   editorRef,
+  tagData,
+  tagText,
+  tagTextResetHandler,
+  tagTextChangeHandler,
+  tagInsert,
+  tagDeleteHandler,
   sendHandler,
 }) => {
-  const [tags, setTag] = useState<string[]>([]);
-  const [value, setValue] = useState<string>('');
-
-  const onKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
-    const { key } = e;
-    const tagList = tags;
-
-    switch (key) {
-      case ',':
-      case ' ':
-        setValue('');
-        break;
-
-      case 'Enter':
-        if (tagList.includes(`#${value}`)) {
-          setValue('');
-
-          return;
-        }
-
-        tagList.push(`#${value}`);
-        setTag(tagList);
-        setValue('');
-        break;
-    }
-  };
-
-  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setValue(e.target.value);
-  };
-
-  const deleteTag = (e: MouseEvent<HTMLButtonElement>) => {
-    const deleteTag = e.currentTarget.dataset.tag;
-
-    setTag(tags.filter((item) => deleteTag !== item));
-  };
-
-  const onReset = () => {
-    setValue('');
-  };
-
   return (
     <>
       <section className={styles['section-book']}>
@@ -98,29 +61,21 @@ const WriteReading: FC<WriteReadingProps> = ({
         <h3>Tags</h3>
         <TfComm
           placeholder="enter입력해서 tag를 입력해 주세요."
-          keyword={value}
-          keywordHandler={onChange}
-          resetHandler={onReset}
-          keyUpHandler={onKeyDown}
+          keyword={tagText}
+          keywordHandler={tagTextChangeHandler}
+          resetHandler={tagTextResetHandler}
+          keyUpHandler={tagInsert}
           className={styles['tag-tf']}
         />
-        {!!tags.length && (
-          <div className={styles['tag']}>
-            {tags.map((item) => {
+        {!!tagData.length && (
+          <div className={styles['tag-area']}>
+            {tagData.map((item) => {
               return (
-                <div key={item} className={styles['tag-item']}>
-                  {item}
-                  <button
-                    type="button"
-                    className={styles['tag-btn-delete']}
-                    data-tag={item}
-                    onClick={deleteTag}>
-                    <IconCommon
-                      name="cancel"
-                      className={styles['tag-icon-delete']}
-                    />
-                  </button>
-                </div>
+                <Tag
+                  key={item}
+                  tagItem={item}
+                  tagDeleteHandler={tagDeleteHandler}
+                />
               );
             })}
           </div>

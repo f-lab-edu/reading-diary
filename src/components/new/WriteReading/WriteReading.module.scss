@@ -75,37 +75,8 @@
     margin-top: var(--spacing-8);
   }
 
-  .tag {
-    display: flex;
+  .tag-area {
     padding-top: var(--spacing-8);
-
-    &-item {
-      display: inline-flex;
-      align-items: center;
-      height: 32px;
-      padding: 0 8px;
-      margin: 4px 8px 0 0;
-      border-radius: 8px;
-      font-weight: 500;
-      font-size: var(--font-size-label1-normal);
-      color: var(--color-light-label-normal);
-      background-color: var(--color-light-component-fill-alternative);
-    }
-
-    &-btn-delete {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 16px;
-      height: 16px;
-      margin-left: 2px;
-    }
-
-    &-icon-delete {
-      flex: none;
-      width: 14px;
-      height: 14px;
-    }
   }
 }
 
