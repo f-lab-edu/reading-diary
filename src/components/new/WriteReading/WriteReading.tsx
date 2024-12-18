@@ -1,13 +1,13 @@
 import styles from './WriteReading.module.scss';
 
 import {
-  ChangeEvent,
   MouseEvent,
-  FC,
   KeyboardEvent,
-  Ref,
   useState,
+  useCallback,
+  useRef,
 } from 'react';
+import useBookInfoStore from 'store/useBookInfo';
 
 import { Editor } from '@toast-ui/react-editor';
 import ToastEditor from 'components/common/ToastEditor';
@@ -15,21 +15,12 @@ import InputTypeCommon from 'components/common/textField/InputTypeCommon';
 import BtnCommon from 'components/common/Buttons/BtnCommon';
 import Tag from './Tag';
 
-import { BookListTypes } from 'components/common/list/ListBooks';
-
-interface WriteReadingProps {
-  bookItem: BookListTypes;
-  editorRef: Ref<Editor>;
-  sendHandler(): void;
-}
-
-const WriteReading: FC<WriteReadingProps> = ({
-  bookItem,
-  editorRef,
-  sendHandler,
-}) => {
+const WriteReading = () => {
   const [tagList, setTagList] = useState<string[]>([]);
   const [tagText, setTagText] = useState<string>('');
+
+  const editRef = useRef<Editor>(null);
+  const bookInfo = useBookInfoStore((state: any) => state.bookInfo);
 
   const onTagInsert = (e: KeyboardEvent<HTMLInputElement>) => {
     const { key } = e;
@@ -48,8 +39,6 @@ const WriteReading: FC<WriteReadingProps> = ({
           return;
         }
 
-        console.log('work');
-
         tagData.push(`#${tagText}`);
         setTagList(tagData);
         setTagText('');
@@ -63,26 +52,31 @@ const WriteReading: FC<WriteReadingProps> = ({
     setTagList(tagList.filter((item) => deleteTag !== item));
   };
 
+  const sendReading = useCallback(() => {
+    if (!editRef.current) return;
+    console.log(editRef.current.getInstance().getMarkdown());
+  }, []);
+
   return (
     <>
       <section className={styles['section-book']}>
         <div className={styles['section-book-inner']}>
           <div className={styles['box-thumbnail']}>
-            <img src={bookItem.thumbnail} alt={`${bookItem.title} 책 표지`} />
+            <img src={bookInfo.thumbnail} alt={`${bookInfo.title} 책 표지`} />
           </div>
 
           <dl className={styles['book-info']}>
             <div className={styles['book-info-item']}>
               <dt>작가:</dt>
-              <dd>{bookItem.authors.join(', ')}</dd>
+              <dd>{bookInfo.authors.join(', ')}</dd>
             </div>
             <div className={styles['book-info-item']}>
               <dt>제목:</dt>
-              <dd>{bookItem.title}</dd>
+              <dd>{bookInfo.title}</dd>
             </div>
             <div className={styles['book-info-item']}>
               <dt>출판사:</dt>
-              <dd>{bookItem.publisher}</dd>
+              <dd>{bookInfo.publisher}</dd>
             </div>
           </dl>
         </div>
@@ -108,14 +102,14 @@ const WriteReading: FC<WriteReadingProps> = ({
         <h3>기록 남기기</h3>
         <div className={styles['edit-box']}>
           <ToastEditor
-            editorRef={editorRef}
+            editorRef={editRef}
             initValue="### 읽고 기억하고 싶은걸 써보자!"
           />
         </div>
         <div className={styles['edit-group-btn']}>
           <BtnCommon
             type="button"
-            clickHandler={sendHandler}
+            clickHandler={sendReading}
             bgType="primary"
             size="medium">
             저장하기

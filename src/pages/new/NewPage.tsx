@@ -1,6 +1,8 @@
 import { useEffect, useState, useRef, useCallback, MouseEvent } from 'react';
 import { Editor } from '@toast-ui/react-editor';
 
+import useBookInfoStore from '../../store/useBookInfo';
+
 // import { getBooks } from 'api/book'; 추후 api 연동하기 위해 남겨 놓음
 import { mockApi } from 'utils/api';
 
@@ -13,15 +15,10 @@ type StepType = 'SELECT-BOOK' | 'WRITE-READING';
 
 const ReadingNewPage = () => {
   const [bookList, setBookList] = useState<BookListTypes[]>([]);
-  const [bookItem, setBookItem] = useState<BookListTypes | null>();
   const [step, setStep] = useState<StepType>('SELECT-BOOK');
 
-  const editRef = useRef<Editor>(null);
-
-  const sendReading = useCallback(() => {
-    if (!editRef.current) return;
-    console.log(editRef.current.getInstance().getMarkdown());
-  }, []);
+  const bookInfo = useBookInfoStore((state: any) => state.bookInfo);
+  const updateBookInfo = useBookInfoStore((state: any) => state.updateBookInfo);
 
   const onClickBookDetail = (e: MouseEvent<HTMLButtonElement>) => {
     const { dataset } = e.currentTarget;
@@ -34,7 +31,7 @@ const ReadingNewPage = () => {
       (item) => e.currentTarget.dataset.isbn === item.isbn,
     );
 
-    setBookItem(bookItem[0]);
+    updateBookInfo(bookItem[0]);
     setStep('WRITE-READING');
   };
 
@@ -67,13 +64,7 @@ const ReadingNewPage = () => {
       {step === 'SELECT-BOOK' && (
         <SelectBook bookList={bookList} BookClickHandler={onClickBookDetail} />
       )}
-      {!!bookItem && step === 'WRITE-READING' && (
-        <WriteReading
-          bookItem={bookItem}
-          editorRef={editRef}
-          sendHandler={sendReading}
-        />
-      )}
+      {!!bookInfo && step === 'WRITE-READING' && <WriteReading />}
     </>
   );
 };
