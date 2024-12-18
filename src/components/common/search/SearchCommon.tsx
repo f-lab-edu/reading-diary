@@ -5,15 +5,10 @@ import InputTypeCommon from '../textField/InputTypeCommon';
 
 interface SearchCommonProps {
   searchHandler(): void;
-
   placeholder: string;
 }
 
-const SearchCommon = ({
-  searchHandler,
-
-  placeholder,
-}: SearchCommonProps) => {
+const SearchCommon = ({ searchHandler, placeholder }: SearchCommonProps) => {
   return (
     <div className={styles['search']}>
       <InputTypeCommon placeholder={placeholder} />

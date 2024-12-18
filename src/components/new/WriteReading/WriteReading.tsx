@@ -1,6 +1,13 @@
 import styles from './WriteReading.module.scss';
 
-import { ChangeEvent, MouseEvent, FC, KeyboardEvent, Ref } from 'react';
+import {
+  ChangeEvent,
+  MouseEvent,
+  FC,
+  KeyboardEvent,
+  Ref,
+  useState,
+} from 'react';
 
 import { Editor } from '@toast-ui/react-editor';
 import ToastEditor from 'components/common/ToastEditor';
@@ -13,20 +20,49 @@ import { BookListTypes } from 'components/common/list/ListBooks';
 interface WriteReadingProps {
   bookItem: BookListTypes;
   editorRef: Ref<Editor>;
-  tagData: string[];
-  tagInsert(e: KeyboardEvent<HTMLInputElement>): void;
-  tagDeleteHandler(e: MouseEvent<HTMLButtonElement>): void;
   sendHandler(): void;
 }
 
 const WriteReading: FC<WriteReadingProps> = ({
   bookItem,
   editorRef,
-  tagData,
-  tagInsert,
-  tagDeleteHandler,
   sendHandler,
 }) => {
+  const [tagList, setTagList] = useState<string[]>([]);
+  const [tagText, setTagText] = useState<string>('');
+
+  const onTagInsert = (e: KeyboardEvent<HTMLInputElement>) => {
+    const { key } = e;
+    const tagData = tagList;
+
+    switch (key) {
+      case ',':
+      case ' ':
+        setTagText('');
+        break;
+
+      case 'Enter':
+        if (tagList.includes(`#${tagText}`)) {
+          setTagText('');
+
+          return;
+        }
+
+        console.log('work');
+
+        tagData.push(`#${tagText}`);
+        setTagList(tagData);
+        setTagText('');
+        break;
+    }
+  };
+
+  const onTagDelete = (e: MouseEvent<HTMLButtonElement>) => {
+    const deleteTag = e.currentTarget.dataset.tag;
+
+    setTagList(tagList.filter((item) => deleteTag !== item));
+  };
+
   return (
     <>
       <section className={styles['section-book']}>
@@ -55,18 +91,14 @@ const WriteReading: FC<WriteReadingProps> = ({
         <h3>Tags</h3>
         <InputTypeCommon
           placeholder="enter입력해서 tag를 입력해 주세요."
-          keyUpHandler={tagInsert}
+          keyUpHandler={onTagInsert}
           className={styles['tag-tf']}
         />
-        {!!tagData.length && (
+        {!!tagList.length && (
           <div className={styles['tag-area']}>
-            {tagData.map((item) => {
+            {tagList.map((item) => {
               return (
-                <Tag
-                  key={item}
-                  tagItem={item}
-                  tagDeleteHandler={tagDeleteHandler}
-                />
+                <Tag key={item} tagItem={item} tagDeleteHandler={onTagDelete} />
               );
             })}
           </div>

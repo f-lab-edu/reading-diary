@@ -1,12 +1,4 @@
-import {
-  useEffect,
-  useState,
-  useRef,
-  useCallback,
-  MouseEvent,
-  KeyboardEvent,
-  ChangeEvent,
-} from 'react';
+import { useEffect, useState, useRef, useCallback, MouseEvent } from 'react';
 import { Editor } from '@toast-ui/react-editor';
 
 // import { getBooks } from 'api/book'; 추후 api 연동하기 위해 남겨 놓음
@@ -23,8 +15,6 @@ const ReadingNewPage = () => {
   const [bookList, setBookList] = useState<BookListTypes[]>([]);
   const [bookItem, setBookItem] = useState<BookListTypes | null>();
   const [step, setStep] = useState<StepType>('SELECT-BOOK');
-  const [tagList, setTagList] = useState<string[]>([]);
-  const [tagText, setTagText] = useState<string>('');
 
   const editRef = useRef<Editor>(null);
 
@@ -58,44 +48,6 @@ const ReadingNewPage = () => {
     }
   };
 
-  const onChangeTagText = (e: ChangeEvent<HTMLInputElement>) => {
-    setTagText(e.target.value);
-  };
-
-  const onTagTextReset = () => {
-    setTagText('');
-  };
-
-  const onTagInsert = (e: KeyboardEvent<HTMLInputElement>) => {
-    const { key } = e;
-    const tagData = tagList;
-
-    switch (key) {
-      case ',':
-      case ' ':
-        setTagText('');
-        break;
-
-      case 'Enter':
-        if (tagList.includes(`#${tagText}`)) {
-          setTagText('');
-
-          return;
-        }
-
-        tagData.push(`#${tagText}`);
-        setTagList(tagData);
-        setTagText('');
-        break;
-    }
-  };
-
-  const onTagDelete = (e: MouseEvent<HTMLButtonElement>) => {
-    const deleteTag = e.currentTarget.dataset.tag;
-
-    setTagList(tagList.filter((item) => deleteTag !== item));
-  };
-
   useEffect(() => {
     const mockBookSearch = mockApi('/data/mock/bookList.json');
 
@@ -119,10 +71,7 @@ const ReadingNewPage = () => {
         <WriteReading
           bookItem={bookItem}
           editorRef={editRef}
-          tagData={tagList}
           sendHandler={sendReading}
-          tagDeleteHandler={onTagDelete}
-          tagInsert={onTagInsert}
         />
       )}
     </>
