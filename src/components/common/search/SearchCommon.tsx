@@ -2,7 +2,7 @@ import styles from './SearchCommon.module.scss';
 import { ChangeEvent } from 'react';
 import IconCommon from 'components/icons/IconCommon';
 import BtnCommon from '../Buttons/BtnCommon';
-import TfComm from '../textField/TfComm';
+import InputTypeCommon from '../textField/InputTypeCommon';
 
 interface SearchCommonProps {
   keywordHandler(e: ChangeEvent<HTMLElement>): void;
@@ -21,7 +21,7 @@ const SearchCommon = ({
 }: SearchCommonProps) => {
   return (
     <div className={styles['search']}>
-      <TfComm
+      <InputTypeCommon
         placeholder={placeholder}
         keywordHandler={keywordHandler}
         resetHandler={resetHandler}

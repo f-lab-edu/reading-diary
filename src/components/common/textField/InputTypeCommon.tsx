@@ -1,5 +1,4 @@
-// import styles from '../search/SearchCommon.module.scss';
-import styles from './TfComm.module.scss';
+import styles from './InputTypeCommon.module.scss';
 
 import { FC, ChangeEvent, KeyboardEvent } from 'react';
 import classNames from 'classnames';
@@ -15,7 +14,7 @@ interface TfCommProps {
   keyUpHandler?(e: KeyboardEvent<HTMLInputElement>): void;
 }
 
-const TfComm: FC<TfCommProps> = ({
+const InputTypeCommon: FC<TfCommProps> = ({
   placeholder,
   className,
   keyword,
@@ -47,4 +46,4 @@ const TfComm: FC<TfCommProps> = ({
   );
 };
 
-export default TfComm;
+export default InputTypeCommon;

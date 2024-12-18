@@ -4,7 +4,7 @@ import { ChangeEvent, MouseEvent, FC, KeyboardEvent, Ref } from 'react';
 
 import { Editor } from '@toast-ui/react-editor';
 import ToastEditor from 'components/common/ToastEditor';
-import TfComm from 'components/common/textField/TfComm';
+import InputTypeCommon from 'components/common/textField/InputTypeCommon';
 import BtnCommon from 'components/common/Buttons/BtnCommon';
 import Tag from './Tag';
 
@@ -59,7 +59,7 @@ const WriteReading: FC<WriteReadingProps> = ({
       </section>
       <section className={styles['section-edit']}>
         <h3>Tags</h3>
-        <TfComm
+        <InputTypeCommon
           placeholder="enter입력해서 tag를 입력해 주세요."
           keyword={tagText}
           keywordHandler={tagTextChangeHandler}
