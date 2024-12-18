@@ -14,9 +14,6 @@ interface WriteReadingProps {
   bookItem: BookListTypes;
   editorRef: Ref<Editor>;
   tagData: string[];
-  tagText: string;
-  tagTextResetHandler(): void;
-  tagTextChangeHandler(e: ChangeEvent<HTMLInputElement>): void;
   tagInsert(e: KeyboardEvent<HTMLInputElement>): void;
   tagDeleteHandler(e: MouseEvent<HTMLButtonElement>): void;
   sendHandler(): void;
@@ -26,9 +23,6 @@ const WriteReading: FC<WriteReadingProps> = ({
   bookItem,
   editorRef,
   tagData,
-  tagText,
-  tagTextResetHandler,
-  tagTextChangeHandler,
   tagInsert,
   tagDeleteHandler,
   sendHandler,
@@ -61,9 +55,6 @@ const WriteReading: FC<WriteReadingProps> = ({
         <h3>Tags</h3>
         <InputTypeCommon
           placeholder="enter입력해서 tag를 입력해 주세요."
-          keyword={tagText}
-          keywordHandler={tagTextChangeHandler}
-          resetHandler={tagTextResetHandler}
           keyUpHandler={tagInsert}
           className={styles['tag-tf']}
         />

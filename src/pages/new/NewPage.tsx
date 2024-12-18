@@ -120,9 +120,6 @@ const ReadingNewPage = () => {
           bookItem={bookItem}
           editorRef={editRef}
           tagData={tagList}
-          tagText={tagText}
-          tagTextResetHandler={onTagTextReset}
-          tagTextChangeHandler={onChangeTagText}
           sendHandler={sendReading}
           tagDeleteHandler={onTagDelete}
           tagInsert={onTagInsert}

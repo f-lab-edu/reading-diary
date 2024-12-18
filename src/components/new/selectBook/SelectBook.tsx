@@ -1,6 +1,6 @@
 import styles from './SelectBook.module.scss';
 
-import { FC, MouseEvent, useState } from 'react';
+import { FC, MouseEvent } from 'react';
 import SearchCommon from 'components/common/search/SearchCommon';
 import ListBooks, { BookListTypes } from 'components/common/list/ListBooks';
 
@@ -9,30 +9,17 @@ interface SelectBookProps {
   BookClickHandler(e: MouseEvent<HTMLButtonElement>): void;
 }
 
+const onClickSearch = () => {
+  console.log('onClickSearch');
+};
+
 const SelectBook: FC<SelectBookProps> = ({ bookList, BookClickHandler }) => {
-  const [searchKeyword, setSearchKeyword] = useState<string>('');
-
-  const onChangeKeyword = (e: any) => {
-    setSearchKeyword(e.target.value);
-  };
-
-  const onClickReset = () => {
-    setSearchKeyword('');
-  };
-
-  const onClickSearch = () => {
-    console.log(searchKeyword);
-  };
-
   return (
     <>
       <section className={styles['section-search']}>
         <h3>도서 검색</h3>
         <SearchCommon
-          keywordHandler={onChangeKeyword}
-          resetHandler={onClickReset}
           searchHandler={onClickSearch}
-          searchKeyword={searchKeyword}
           placeholder="검색할 책이름을 입력해주세요."
         />
       </section>
