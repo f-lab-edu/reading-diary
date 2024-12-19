@@ -1,6 +1,4 @@
-import { useEffect, useState, useRef, useCallback, MouseEvent } from 'react';
-import { Editor } from '@toast-ui/react-editor';
-
+import { useEffect, useState, MouseEvent } from 'react';
 import useBookInfoStore from '../../store/useBookInfo';
 
 // import { getBooks } from 'api/book'; 추후 api 연동하기 위해 남겨 놓음
@@ -17,8 +15,8 @@ const ReadingNewPage = () => {
   const [bookList, setBookList] = useState<BookListTypes[]>([]);
   const [step, setStep] = useState<StepType>('SELECT-BOOK');
 
-  const bookInfo = useBookInfoStore((state: any) => state.bookInfo);
-  const updateBookInfo = useBookInfoStore((state: any) => state.updateBookInfo);
+  const bookInfo = useBookInfoStore((state) => state.bookInfo);
+  const updateBookInfo = useBookInfoStore((state) => state.updateBookInfo);
 
   const onClickBookDetail = (e: MouseEvent<HTMLButtonElement>) => {
     const { dataset } = e.currentTarget;
@@ -27,22 +25,16 @@ const ReadingNewPage = () => {
       return;
     }
 
-    const bookItem = bookList.filter(
-      (item) => e.currentTarget.dataset.isbn === item.isbn,
-    );
+    const bookItem = (): BookListTypes => {
+      const item = bookList.filter(
+        (item) => e.currentTarget.dataset.isbn === item.isbn,
+      );
 
-    updateBookInfo(bookItem[0]);
+      return { ...item[0] };
+    };
+
+    updateBookInfo(bookItem());
     setStep('WRITE-READING');
-  };
-
-  const stepMessage = (step: StepType): string => {
-    switch (step) {
-      case 'WRITE-READING':
-        return '소감을 써봐요.';
-
-      default:
-        return '읽은책을 골라봐요.';
-    }
   };
 
   useEffect(() => {
@@ -60,7 +52,7 @@ const ReadingNewPage = () => {
 
   return (
     <>
-      <h2>Reading Diary: {stepMessage(step)}</h2>
+      <h2>Reading Diary</h2>
       {step === 'SELECT-BOOK' && (
         <SelectBook bookList={bookList} BookClickHandler={onClickBookDetail} />
       )}

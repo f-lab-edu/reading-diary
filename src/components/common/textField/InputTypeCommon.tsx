@@ -1,39 +1,34 @@
 import styles from './InputTypeCommon.module.scss';
 
-import { FC, ChangeEvent, KeyboardEvent, useRef, useState, Ref } from 'react';
+import { FC, ChangeEvent, KeyboardEvent } from 'react';
 import classNames from 'classnames';
-import BtnCommon from '../Buttons/BtnCommon';
-import IconCommon from '../../icons/IconCommon';
+import BtnCommon from 'components/common/Buttons/BtnCommon';
+import IconCommon from 'components/icons/IconCommon';
 
 interface InputTypeCommonProps {
+  value: string;
   placeholder: string;
   className?: string;
-  elementRef?: Ref<HTMLInputElement>;
+  changeHandler: (value: ChangeEvent<HTMLInputElement>) => void;
+  resetHandler: () => void;
   keyUpHandler?(e: KeyboardEvent<HTMLInputElement>): void;
 }
 
 const InputTypeCommon: FC<InputTypeCommonProps> = ({
+  value,
   placeholder,
   className,
+  changeHandler,
+  resetHandler,
   keyUpHandler,
 }) => {
-  const [value, setValue] = useState<string>('');
-
-  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setValue(e.target.value);
-  };
-
-  const onReset = () => {
-    setValue('');
-  };
-
   return (
     <div className={classNames(styles['tf-comm'], className)}>
       <input
         type="text"
         placeholder={placeholder}
         className={styles['tf-comm-inp']}
-        onChange={onChange}
+        onChange={changeHandler}
         onKeyUp={keyUpHandler}
         value={value}
       />
@@ -41,7 +36,7 @@ const InputTypeCommon: FC<InputTypeCommonProps> = ({
         <BtnCommon
           type="reset"
           bgType="neutral"
-          clickHandler={onReset}
+          clickHandler={resetHandler}
           className={styles['tf-comm-btn-reset']}>
           <IconCommon name="cancel" className={styles['tf-comm-icon-reset']} />
           <span className="sr-only">삭제</span>

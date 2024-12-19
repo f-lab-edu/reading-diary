@@ -1,13 +1,6 @@
 import styles from './WriteReading.module.scss';
 
-import {
-  MouseEvent,
-  KeyboardEvent,
-  useState,
-  useCallback,
-  useRef,
-} from 'react';
-import useBookInfoStore from 'store/useBookInfo';
+import { MouseEvent, KeyboardEvent, useCallback, useRef } from 'react';
 
 import { Editor } from '@toast-ui/react-editor';
 import ToastEditor from 'components/common/ToastEditor';
@@ -15,33 +8,37 @@ import InputTypeCommon from 'components/common/textField/InputTypeCommon';
 import BtnCommon from 'components/common/Buttons/BtnCommon';
 import Tag from './Tag';
 
-const WriteReading = () => {
-  const [tagList, setTagList] = useState<string[]>([]);
-  const [tagText, setTagText] = useState<string>('');
+import useBookInfoStore from 'store/useBookInfo';
+import useBookTagStore from 'store/useBookTag';
+import useInputTypeCommon from 'hooks/useInputTypeCommon';
 
+const WriteReading = () => {
   const editRef = useRef<Editor>(null);
-  const bookInfo = useBookInfoStore((state: any) => state.bookInfo);
+  const bookInfo = useBookInfoStore((state) => state.bookInfo);
+
+  const { value, onChange, onReset } = useInputTypeCommon('');
+  const tagList = useBookTagStore((state) => state.tagList);
+  const updateTag = useBookTagStore((state) => state.updateBookTag);
+  const removeTag = useBookTagStore((state) => state.removeBookTag);
 
   const onTagInsert = (e: KeyboardEvent<HTMLInputElement>) => {
     const { key } = e;
-    const tagData = tagList;
 
     switch (key) {
       case ',':
       case ' ':
-        setTagText('');
         break;
 
       case 'Enter':
-        if (tagList.includes(`#${tagText}`)) {
-          setTagText('');
+        const tempTagList = useBookTagStore.getState();
 
+        if (tempTagList.tagList.includes(`#${value}`)) {
+          onReset();
           return;
         }
 
-        tagData.push(`#${tagText}`);
-        setTagList(tagData);
-        setTagText('');
+        updateTag(`#${value}`);
+        onReset();
         break;
     }
   };
@@ -49,7 +46,9 @@ const WriteReading = () => {
   const onTagDelete = (e: MouseEvent<HTMLButtonElement>) => {
     const deleteTag = e.currentTarget.dataset.tag;
 
-    setTagList(tagList.filter((item) => deleteTag !== item));
+    if (!deleteTag) return;
+
+    removeTag(deleteTag);
   };
 
   const sendReading = useCallback(() => {
@@ -84,7 +83,10 @@ const WriteReading = () => {
       <section className={styles['section-edit']}>
         <h3>Tags</h3>
         <InputTypeCommon
-          placeholder="enter입력해서 tag를 입력해 주세요."
+          placeholder="enter를 눌러 tag를 입력해 주세요."
+          value={value}
+          changeHandler={onChange}
+          resetHandler={onReset}
           keyUpHandler={onTagInsert}
           className={styles['tag-tf']}
         />
