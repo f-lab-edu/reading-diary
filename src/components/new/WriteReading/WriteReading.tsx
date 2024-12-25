@@ -1,6 +1,14 @@
 import styles from './WriteReading.module.scss';
 
-import { MouseEvent, KeyboardEvent, useCallback, useRef } from 'react';
+import {
+  MouseEvent,
+  KeyboardEvent,
+  useCallback,
+  useState,
+  useRef,
+  useEffect,
+} from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import { Editor } from '@toast-ui/react-editor';
 import ToastEditor from 'components/common/ToastEditor';
@@ -11,15 +19,24 @@ import Tag from './Tag';
 import useBookInfoStore from 'store/useBookInfo';
 import useBookTagStore from 'store/useBookTag';
 import useInputTypeCommon from 'hooks/useInputTypeCommon';
+import { useIndexedDB } from 'hooks/useIDBMyReadings';
+
+import { ROOT } from 'routes/route';
 
 const WriteReading = () => {
   const editRef = useRef<Editor>(null);
-  const bookInfo = useBookInfoStore((state) => state.bookInfo);
+  const [dbCount, setDbCount] = useState<number>(0);
 
-  const { value, onChange, onReset } = useInputTypeCommon('');
+  const navigate = useNavigate();
+
+  const bookInfo = useBookInfoStore((state) => state.bookInfo);
   const tagList = useBookTagStore((state) => state.tagList);
   const updateTag = useBookTagStore((state) => state.updateBookTag);
   const removeTag = useBookTagStore((state) => state.removeBookTag);
+  const resetBookTag = useBookTagStore((state) => state.resetBookTag);
+
+  const { value, onChange, onReset } = useInputTypeCommon('');
+  const { putMyReadings, isLoading, getCount, db } = useIndexedDB();
 
   const onTagInsert = (e: KeyboardEvent<HTMLInputElement>) => {
     const { key } = e;
@@ -51,10 +68,30 @@ const WriteReading = () => {
     removeTag(deleteTag);
   };
 
-  const sendReading = useCallback(() => {
-    if (!editRef.current) return;
-    console.log(editRef.current.getInstance().getMarkdown());
-  }, []);
+  const sendReading = useCallback(async () => {
+    if (!editRef?.current) return;
+
+    const myRecord = editRef.current.getInstance().getMarkdown();
+
+    putMyReadings({
+      id: dbCount + 1,
+      bookInfo,
+      tags: tagList,
+      myReviews: myRecord,
+    }).then(() => {
+      resetBookTag();
+      navigate(ROOT.MAIN);
+    });
+  }, [dbCount, bookInfo, putMyReadings, resetBookTag, tagList, navigate]);
+
+  useEffect(() => {
+    if (!isLoading && db) {
+      (async () => {
+        const dbCount = await getCount();
+        setDbCount(dbCount);
+      })();
+    }
+  }, [isLoading, getCount, db]);
 
   return (
     <>
