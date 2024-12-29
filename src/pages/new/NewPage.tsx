@@ -1,5 +1,5 @@
 import { useEffect, useState, MouseEvent } from 'react';
-import useBookInfoStore from '../../store/useBookInfo';
+import useBookInfoStore from 'store/useBookInfo';
 
 // import { getBooks } from 'api/book'; 추후 api 연동하기 위해 남겨 놓음
 import { mockApi } from 'utils/api';
