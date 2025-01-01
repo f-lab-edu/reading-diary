@@ -93,7 +93,16 @@ export const useIndexedDB = () => {
     [db],
   );
 
-  const getMyReadings = useCallback(
+  const getMyReadingList = useCallback(async () => {
+    if (!db) throw new Error('DB is not initialized');
+
+    const tx = db.transaction(STORE_NAME, 'readonly');
+    const store = tx.objectStore(STORE_NAME);
+
+    return await store.getAll();
+  }, [db]);
+
+  const getMyReading = useCallback(
     async (id: number) => {
       if (!db) throw new Error('DB is not initialized');
 
@@ -125,7 +134,8 @@ export const useIndexedDB = () => {
     getCount,
     addMyReadings,
     putMyReadings,
-    getMyReadings,
+    getMyReading,
+    getMyReadingList,
     deleteMyReadings,
   };
 };
