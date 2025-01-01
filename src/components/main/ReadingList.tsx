@@ -2,7 +2,7 @@ import { MouseEvent, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ROOT } from 'routes/route';
 
-import { MyReadingsValue } from 'hooks/useIDBMyReadings';
+import { MyReadingsValue } from 'hooks/useIDb';
 import { BookListTypes } from 'components/common/list/ListBooks';
 
 import ListBooks from 'components/common/list/ListBooks';

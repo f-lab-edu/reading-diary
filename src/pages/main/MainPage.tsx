@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
-import { useIndexedDB } from 'hooks/useIDBMyReadings';
-import { MyReadingsValue } from 'hooks/useIDBMyReadings';
+import { useIDb } from 'hooks/useIDb';
+import { MyReadingsValue } from 'hooks/useIDb';
 import Empty from 'components/main/Empty';
 import ReadingList from 'components/main/ReadingList';
 
 const MainPage = () => {
-  const { getMyReadingList, db, isLoading } = useIndexedDB();
+  const { getMyReadingList, db, isLoading } = useIDb();
   const [readingList, setReadingList] = useState<MyReadingsValue[]>([]);
 
   useEffect(() => {

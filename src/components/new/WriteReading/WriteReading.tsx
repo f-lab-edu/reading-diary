@@ -19,7 +19,7 @@ import Tag from './Tag';
 import useBookInfoStore from 'store/useBookInfo';
 import useBookTagStore from 'store/useBookTag';
 import useInputTypeCommon from 'hooks/useInputTypeCommon';
-import { useIndexedDB } from 'hooks/useIDBMyReadings';
+import { useIDb } from 'hooks/useIDb';
 
 import { ROOT } from 'routes/route';
 
@@ -36,7 +36,7 @@ const WriteReading = () => {
   const resetBookTag = useBookTagStore((state) => state.resetBookTag);
 
   const { value, onChange, onReset } = useInputTypeCommon('');
-  const { putMyReadings, isLoading, getCount, db } = useIndexedDB();
+  const { putMyReadings, isLoading, getCount, db } = useIDb();
 
   const onTagInsert = (e: KeyboardEvent<HTMLInputElement>) => {
     const { key } = e;
@@ -68,7 +68,7 @@ const WriteReading = () => {
     removeTag(deleteTag);
   };
 
-  const sendReading = useCallback(async () => {
+  const save = useCallback(async () => {
     if (!editRef?.current) return;
 
     const myRecord = editRef.current.getInstance().getMarkdown();
@@ -148,7 +148,7 @@ const WriteReading = () => {
         <div className={styles['edit-group-btn']}>
           <BtnCommon
             type="button"
-            clickHandler={sendReading}
+            clickHandler={save}
             bgType="primary"
             size="medium">
             저장하기
