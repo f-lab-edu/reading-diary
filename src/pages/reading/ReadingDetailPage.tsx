@@ -19,7 +19,6 @@ const ReadingDetailPage = () => {
 
     if (!isLoading && db) {
       getMyReading(Number(id)).then((data) => {
-        console.log(data);
         setMyReading(data);
       });
     }
