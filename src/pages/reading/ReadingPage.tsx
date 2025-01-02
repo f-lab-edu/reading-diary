@@ -2,7 +2,7 @@ import { Outlet } from 'react-router-dom';
 
 const ReadingPage = () => (
   <>
-    <h2>Reading Page</h2>
+    <h2>My Reading</h2>
     <Outlet />
   </>
 );
