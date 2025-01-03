@@ -1,10 +1,11 @@
 import styles from './ListBooks.module.scss';
-import IconCommon from 'components/icons/IconCommon';
-import BtnCommon from '../Buttons/BtnCommon';
-import { MouseEvent } from 'react';
+import { MouseEvent, useState } from 'react';
+
+import DimmedButton from './DimmedButton';
 
 export type BookListTypes = {
   isbn: string;
+  id?: string;
   authors: string[];
   publisher: string;
   thumbnail: string;
@@ -17,12 +18,32 @@ interface ListBooksProps {
 }
 
 const ListBooks = ({ bookList, bookDetailHandler }: ListBooksProps) => {
+  const [currentId, setCurrentId] = useState<string>('');
+
+  const mouseEnter = (e: MouseEvent<HTMLElement>) => {
+    const { currentTarget } = e;
+
+    if (!currentTarget?.dataset?.id) return;
+
+    setCurrentId(currentTarget.dataset.id);
+  };
+
+  const mouseLeave = () => {
+    setCurrentId('');
+  };
+
   return (
     <ul className={styles['book-list']}>
       {bookList.map((book: BookListTypes) => {
-        const { isbn, authors, publisher, thumbnail, title } = book;
+        const { isbn, id, authors, publisher, thumbnail, title } = book;
+        const idOrIsbn = id ? id : isbn;
+
         return (
-          <li key={isbn}>
+          <li
+            key={idOrIsbn}
+            data-id={idOrIsbn}
+            onMouseEnter={mouseEnter}
+            onMouseLeave={mouseLeave}>
             <div className={styles['book-list-inner']}>
               <img
                 src={thumbnail}
@@ -43,20 +64,9 @@ const ListBooks = ({ bookList, bookDetailHandler }: ListBooksProps) => {
                   <dd>{publisher}</dd>
                 </div>
               </dl>
-              <div className={styles['book-list-dimmed']}>
-                <BtnCommon
-                  type="button"
-                  className={styles['book-list-btn']}
-                  clickHandler={bookDetailHandler}
-                  bgType="dimmed"
-                  data-isbn={isbn}>
-                  <IconCommon
-                    name="book"
-                    className={styles['book-list-btn-icon']}
-                  />
-                  선택하기
-                </BtnCommon>
-              </div>
+              {currentId === idOrIsbn && (
+                <DimmedButton buttonHandler={bookDetailHandler} id={idOrIsbn} />
+              )}
             </div>
           </li>
         );
