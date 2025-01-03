@@ -12,6 +12,7 @@
     "@types/react": "^18.0.0",
     "@types/react-dom": "^18.0.0",
     "classnames": "^2.5.1",
+    "gh-pages": "^6.3.0",
     "idb": "^8.0.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
@@ -24,7 +25,9 @@
   "scripts": {
     "start": "env-cmd -f .env.local react-scripts start",
     "build": "env-cmd -f .env.production react-scripts build",
+    "predeploy": "yarn build",
     "test": "react-scripts test",
+    "deploy": "gh-pages -d build",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
