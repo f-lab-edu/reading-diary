@@ -1,0 +1,17 @@
+{
+  "files": {
+    "main.css": "/reading-diary/static/css/main.fdfd0e07.css",
+    "main.js": "/reading-diary/static/js/main.e0175306.js",
+    "static/media/PretendardVariable.woff2": "/reading-diary/static/media/PretendardVariable.2bc582461caf4e05b51d.woff2",
+    "static/media/index.cjs": "/reading-diary/static/media/index.c05687ef19f5bac24939.cjs",
+    "static/media/logo.svg": "/reading-diary/static/media/logo.47b1e35dbe3ffcee76a9802fd49f27eb.svg",
+    "static/media/common.svg": "/reading-diary/static/media/common.43cb5718a2343238987c35ed053b6e79.svg",
+    "index.html": "/reading-diary/index.html",
+    "main.fdfd0e07.css.map": "/reading-diary/static/css/main.fdfd0e07.css.map",
+    "main.e0175306.js.map": "/reading-diary/static/js/main.e0175306.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.fdfd0e07.css",
+    "static/js/main.e0175306.js"
+  ]
+}
