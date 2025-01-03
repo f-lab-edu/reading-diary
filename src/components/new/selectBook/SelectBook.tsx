@@ -1,6 +1,13 @@
 import styles from './SelectBook.module.scss';
 
-import { FC, MouseEvent, useState, useRef, ChangeEvent } from 'react';
+import {
+  useState,
+  useRef,
+  useEffect,
+  FC,
+  MouseEvent,
+  ChangeEvent,
+} from 'react';
 import SearchCommon from 'components/common/search/SearchCommon';
 import { getBooks, PagingInfo } from 'api/book';
 import ListBooks from 'components/common/list/ListBooks';
@@ -66,6 +73,12 @@ const SelectBook: FC<SelectBookProps> = ({ BookClickHandler }) => {
       resetBookList();
     }
   };
+
+  useEffect(() => {
+    return () => {
+      resetBookList();
+    };
+  }, [resetBookList]);
 
   return (
     <>
