@@ -1,0 +1,27 @@
+.empty {
+  padding-top: var(--spacing-8);
+
+  &-text {
+    padding-top: var(--spacing-8);
+    margin: 0;
+    font-size: var(--font-size-headline-2);
+    line-height: 1.5;
+  }
+
+  &-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 40px;
+    padding: 0 var(--spacing-16);
+    margin-top: var(--spacing-16);
+    border-radius: 8px;
+    font-size: var(--font-size-body2-normal);
+    color: var(--color-white);
+    background-color: var(--color-light-inverse-primary);
+
+    &:hover {
+      background-color: var(--color-light-primary-normal);
+    }
+  }
+}
