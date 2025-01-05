@@ -2,6 +2,7 @@
   "name": "reading-diary",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://f-lab-edu.github.io/reading-diary/",
   "dependencies": {
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^13.0.0",
@@ -12,7 +13,6 @@
     "@types/react": "^18.0.0",
     "@types/react-dom": "^18.0.0",
     "classnames": "^2.5.1",
-    "gh-pages": "^6.3.0",
     "idb": "^8.0.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
@@ -51,6 +51,7 @@
   "devDependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "env-cmd": "^10.1.0",
+    "gh-pages": "^6.3.0",
     "prettier": "^3.4.1",
     "sass-embedded": "^1.81.0"
   }
